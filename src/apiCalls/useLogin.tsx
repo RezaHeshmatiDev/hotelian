@@ -1,14 +1,14 @@
 import { AxiosError, AxiosResponse } from "axios";
 import React from "react";
 import instance from "./instance";
-//create a custom hook
 
+//create a custom hook :)
 type LoginType = {
   userName: string;
   password: string;
 };
 const login = (params: LoginType) =>
-  instance.post("/login", {
+  instance.post("/users/login", {
     params,
   });
 
