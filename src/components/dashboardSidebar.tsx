@@ -9,8 +9,6 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import KeyIcon from "@mui/icons-material/Key";
-import CategoryIcon from "@mui/icons-material/Category";
 
 import NavItem from "./navItem";
 import HomeIcon from "@mui/icons-material/Home";
@@ -68,6 +66,7 @@ const DashboardSidebar: FC<DashboardSidebarPropsType> = ({ open, onClose }) => {
           display: "flex",
           flexDirection: "column",
           height: "100%",
+          backgroundColor: "primary.main",
         }}
       >
         <div>
@@ -77,10 +76,12 @@ const DashboardSidebar: FC<DashboardSidebarPropsType> = ({ open, onClose }) => {
               display: "flex",
               alignItem: "center",
               justifyContent: "space-around",
+              padding: "1rem 0",
+              color: "black",
             }}
           >
             <NextLink href="/" passHref>
-              <a>logo should goes here!</a>
+              <a>logo here</a>
             </NextLink>
             <div>
               <Typography color="inherit" variant="subtitle1">
@@ -109,10 +110,14 @@ const DashboardSidebar: FC<DashboardSidebarPropsType> = ({ open, onClose }) => {
         <Divider
           sx={{
             borderColor: "#2D3748",
-            my: 3,
           }}
         />
-        <Box sx={{ flexGrow: 1 }}>
+        <Box
+          sx={{
+            flexGrow: 1,
+            padding: "1rem 0 ",
+          }}
+        >
           {items.map((item) => (
             <NavItem
               key={item.title}
@@ -203,7 +208,7 @@ const DashboardSidebar: FC<DashboardSidebarPropsType> = ({ open, onClose }) => {
       open={open}
       PaperProps={{
         sx: {
-          backgroundColor: "neutral.900",
+          backgroundColor: "primary.main",
           color: "#FFFFFF",
           width: 280,
         },

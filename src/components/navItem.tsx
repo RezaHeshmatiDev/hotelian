@@ -21,11 +21,33 @@ const NavItem: FC<NavItemPropsType> = ({ href, icon, title, ...others }) => {
         mb: 0.5,
         py: 0,
         px: 2,
+        color: "black ",
       }}
       {...others}
     >
       <NextLink href={href} passHref>
-        <Button component="a" startIcon={icon} disableRipple>
+        <Button
+          sx={{
+            backgroundColor: active ? "primary.dark" : "none",
+            borderRadius: 1,
+            color: "black",
+            fontWeight: active ? "Bold" : "none",
+            justifyContent: "flex-start",
+            px: 3,
+            textAlign: "left",
+            textTransform: "none",
+            width: "100%",
+
+            "&:hover": {
+              backgroundColor: active
+                ? "primary.dark"
+                : "rgba(100,100,100, 0.08)",
+            },
+          }}
+          component="a"
+          startIcon={icon}
+          disableRipple
+        >
           <Box sx={{ flexGrow: 1 }}>{title}</Box>
         </Button>
       </NextLink>

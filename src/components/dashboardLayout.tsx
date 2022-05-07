@@ -3,11 +3,16 @@ import { Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import DashboardSidebar from "./dashboardSidebar";
 
-const DashboardLayoutRoot = styled("div")(() => ({
+const DashboardLayoutRoot = styled("div")(({ theme }) => ({
   display: "flex",
   flex: "1 1 auto",
   maxWidth: "100%",
   paddingTop: 25,
+  height: "100vh",
+  backgroundColor: theme.palette.primary.dark,
+  [theme.breakpoints.up("lg")]: {
+    paddingLeft: 280,
+  },
 }));
 
 interface DashboardLayoutPropsType {

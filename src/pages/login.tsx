@@ -5,7 +5,18 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import DashboardLayout from "../components/dashboardLayout";
 import { LoadingButton } from "@mui/lab";
 import useLogin from "../apiCalls/useLogin";
+import { styled } from "@mui/material/styles";
 
+const LoginContainer = styled(Container)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  flexDirection: "column",
+  background: theme.palette.primary.light,
+  width: "fit-content",
+  padding: "2rem",
+  boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+}));
 const inputsStyles = {
   margin: ".4rem",
 };
@@ -40,15 +51,7 @@ const Login = () => {
           py: 8,
         }}
       >
-        <Container
-          maxWidth={false}
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
-          }}
-        >
+        <LoginContainer maxWidth={false}>
           <h1>Login</h1>
           <FormControl>
             <TextField
@@ -75,7 +78,7 @@ const Login = () => {
               login
             </LoadingButton>
           </FormControl>
-        </Container>
+        </LoginContainer>
       </Box>
     </div>
   );
