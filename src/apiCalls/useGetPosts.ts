@@ -3,7 +3,7 @@ import { useQuery, UseQueryResult } from "react-query";
 import { getToken } from "../utils/getSetToken";
 import instance from "./instance";
 
-type SuccessType = {
+export type SuccessType = {
   result: {
     _meta: {
       totalCount: number;
@@ -22,17 +22,20 @@ type SuccessType = {
   };
 };
 
-const getPosts = () =>
+const getPosts = ({ page }: { page: number }) =>
   instance.get("/posts", {
-    params: { "access-token": `${getToken()}` },
+    params: { "access-token": `${getToken()}`, page: page || 1 },
   });
 
-type UseGetPosts = () => UseQueryResult<AxiosResponse<SuccessType>, AxiosError>;
+type UseGetPosts = ({
+  page,
+}: {
+  page: number;
+}) => UseQueryResult<AxiosResponse<SuccessType>, AxiosError>;
 
-const useGetPosts: UseGetPosts = () => {
-  return useQuery("posts", getPosts, {
-    enabled: getToken() ? true : false,
-    retry: 3,
+const useGetPosts: UseGetPosts = ({ page }: { page: number }) => {
+  return useQuery("posts", () => getPosts({ page }), {
+    enabled: false,
   });
 };
 
