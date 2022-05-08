@@ -40,7 +40,7 @@ const Posts = ({
   });
 
   const handleSearch = (value: string) =>
-    debounce(() => setSearchKeyword(value), 500);
+    debounce(() => setSearchKeyword(value), 500)();
   const handleSelectSearchField = (value: string) => setSearchField(value);
 
   React.useEffect(() => {
@@ -99,8 +99,8 @@ const Posts = ({
             name="searchField"
             onChange={(e) => handleSelectSearchField(e.target.value)}
             select
-            defaultValue={searchField}
             variant="standard"
+            value={searchField}
           >
             {searchFields.map((option: { value: string; label: string }) => (
               <MenuItem key={option.value} value={option.value}>
