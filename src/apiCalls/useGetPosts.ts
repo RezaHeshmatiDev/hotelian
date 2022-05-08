@@ -34,19 +34,17 @@ const getPosts = ({ page, searchField, searchKeyword }: PostParams) =>
       "access-token": `${getToken()}`,
       page: page || 1,
       ...(searchField && searchKeyword
-        ? { [`filter[${searchKeyword}]`]: searchKeyword }
+        ? { [`filter[${searchField}]`]: searchKeyword }
         : undefined),
     },
   });
 
-type UseGetPosts = ({
-  page,
-}: {
-  page: number;
-}) => UseQueryResult<AxiosResponse<SuccessType>, AxiosError>;
+type UseGetPosts = (
+  params: PostParams
+) => UseQueryResult<AxiosResponse<SuccessType>, AxiosError>;
 
-const useGetPosts: UseGetPosts = ({ page }: { page: number }) => {
-  return useQuery("posts", () => getPosts({ page }), {
+const useGetPosts: UseGetPosts = (params) => {
+  return useQuery("posts", () => getPosts({ ...params }), {
     enabled: false,
   });
 };
