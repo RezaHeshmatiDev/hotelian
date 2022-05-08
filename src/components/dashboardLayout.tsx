@@ -5,14 +5,14 @@ import DashboardSidebar from "./dashboardSidebar";
 import useLogoutUser from "../apiCalls/useLogoutUser";
 import { useRouter } from "next/router";
 import { delToken } from "../utils/getSetToken";
+import DashboardNavbar from "./dashboardNavbar";
 
 const DashboardLayoutRoot = styled("div")(({ theme }) => ({
   display: "flex",
-  flex: "1 1 auto",
-  maxWidth: "100%",
-  paddingTop: 25,
-  height: "100vh",
+  paddingTop: 50,
+  // height: "100vh",
   backgroundColor: theme.palette.primary.dark,
+  paddingBottom: "2rem",
 }));
 
 interface DashboardLayoutPropsType {
@@ -39,12 +39,14 @@ const DashboardLayout: FC<DashboardLayoutPropsType> = ({ children }) => {
             display: "flex",
             flex: "1 1 auto",
             flexDirection: "column",
-            width: "100%",
+            width: "100vw",
           }}
         >
           {children}
         </Box>
       </DashboardLayoutRoot>
+      <DashboardNavbar onSidebarOpen={() => setSidebarOpen(true)} />
+
       <DashboardSidebar
         onClose={() => setSidebarOpen(false)}
         open={isSidebarOpen}

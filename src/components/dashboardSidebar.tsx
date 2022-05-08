@@ -1,14 +1,6 @@
 import { FC } from "react";
 import NextLink from "next/link";
-import {
-  Box,
-  Divider,
-  Drawer,
-  ListItem,
-  Theme,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+import { Box, Divider, Drawer, ListItem, Typography } from "@mui/material";
 
 import NavItem from "./navItem";
 import HomeIcon from "@mui/icons-material/Home";
