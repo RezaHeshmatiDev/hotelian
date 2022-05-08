@@ -26,6 +26,7 @@ const Home: NextComponentType<NextPageContext, any, {}> &
         sx={{
           flexGrow: 1,
           py: 8,
+          height: "100vh",
         }}
       >
         <Container maxWidth={false}>

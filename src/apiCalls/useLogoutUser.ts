@@ -8,7 +8,7 @@ type LogoutUserType = () => Promise<AxiosResponse<any, any>>;
 export const logoutUser: LogoutUserType = () => {
   return instance.delete(`/users/logout`, {
     params: {
-      "access-token": `Bearer ${getToken()}`,
+      "access-token": `${getToken()}`,
     },
   });
 };

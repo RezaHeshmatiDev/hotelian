@@ -12,7 +12,7 @@ const login = (params: LoginType) =>
     ...params,
   });
 
-type successType = {
+type SuccessType = {
   ok: string;
   result: {
     access_token: string;
@@ -21,7 +21,7 @@ type successType = {
 };
 
 type UseLoginType = () => {
-  data: AxiosResponse<successType> | undefined;
+  data: AxiosResponse<SuccessType> | undefined;
   isLoading: boolean;
   error: AxiosError<unknown, any> | undefined;
   fetchLoginData: (params: LoginType) => void;
@@ -29,7 +29,7 @@ type UseLoginType = () => {
 
 const useLogin: UseLoginType = () => {
   const [data, setData] = React.useState<
-    AxiosResponse<successType> | undefined
+    AxiosResponse<SuccessType> | undefined
   >(undefined);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<
