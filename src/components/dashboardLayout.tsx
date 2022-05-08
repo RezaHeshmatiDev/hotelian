@@ -10,7 +10,6 @@ import DashboardNavbar from "./dashboardNavbar";
 const DashboardLayoutRoot = styled("div")(({ theme }) => ({
   display: "flex",
   paddingTop: 50,
-  // height: "100vh",
   backgroundColor: theme.palette.primary.dark,
   paddingBottom: "2rem",
 }));
