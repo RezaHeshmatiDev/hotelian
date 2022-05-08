@@ -8,7 +8,8 @@ import { ReactNode } from "react";
 import createEmotionCache from "../utils/createEmotionCache";
 import lightThemeOptions from "../styles/theme/lightThemeOptions";
 import "../styles/globals.css";
-
+import { QueryClient, QueryClientProvider } from "react-query";
+const queryClient = new QueryClient();
 const clientSideEmotionCache = createEmotionCache();
 
 const lightTheme = createTheme(lightThemeOptions);
@@ -20,12 +21,14 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = (
   const getLayout = Component.getLayout ?? ((page: ReactNode) => page);
 
   return (
-    <CacheProvider value={emotionCache}>
-      <ThemeProvider theme={lightTheme}>
-        <CssBaseline />
-        {getLayout(<Component {...pageProps} />)}
-      </ThemeProvider>
-    </CacheProvider>
+    <QueryClientProvider client={queryClient}>
+      <CacheProvider value={emotionCache}>
+        <ThemeProvider theme={lightTheme}>
+          <CssBaseline />
+          {getLayout(<Component {...pageProps} />)}
+        </ThemeProvider>
+      </CacheProvider>
+    </QueryClientProvider>
   );
 };
 
