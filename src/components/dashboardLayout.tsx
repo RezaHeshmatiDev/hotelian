@@ -1,7 +1,10 @@
-import { FC, ReactNode, useState } from "react";
+import { FC, ReactNode, useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import DashboardSidebar from "./dashboardSidebar";
+import useLogoutUser from "../apiCalls/useLogoutUser";
+import { useRouter } from "next/router";
+import { delToken } from "../utils/getSetToken";
 
 const DashboardLayoutRoot = styled("div")(({ theme }) => ({
   display: "flex",
@@ -21,6 +24,15 @@ interface DashboardLayoutPropsType {
 
 const DashboardLayout: FC<DashboardLayoutPropsType> = ({ children }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const router = useRouter();
+  const { data, isLoading, mutate: logoutUser } = useLogoutUser();
+
+  useEffect(() => {
+    if (data) {
+      delToken();
+      window.location.reload();
+    }
+  }, [data]);
 
   return (
     <>
@@ -39,6 +51,8 @@ const DashboardLayout: FC<DashboardLayoutPropsType> = ({ children }) => {
       <DashboardSidebar
         onClose={() => setSidebarOpen(false)}
         open={isSidebarOpen}
+        handleOnLogout={() => logoutUser({})}
+        logouting={isLoading}
       />
     </>
   );

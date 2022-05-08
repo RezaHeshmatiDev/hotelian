@@ -7,9 +7,16 @@ interface NavItemPropsType {
   href: string;
   icon: ReactNode;
   title: string;
+  disabled: boolean;
 }
 
-const NavItem: FC<NavItemPropsType> = ({ href, icon, title, ...others }) => {
+const NavItem: FC<NavItemPropsType> = ({
+  href,
+  icon,
+  title,
+  disabled,
+  ...others
+}) => {
   const router = useRouter();
   const active = href ? router.pathname === href : false;
 
@@ -25,7 +32,7 @@ const NavItem: FC<NavItemPropsType> = ({ href, icon, title, ...others }) => {
       }}
       {...others}
     >
-      <NextLink href={href} passHref>
+      <NextLink href={href} passHref aria-disabled>
         <Button
           sx={{
             backgroundColor: active ? "primary.dark" : "none",
@@ -47,6 +54,7 @@ const NavItem: FC<NavItemPropsType> = ({ href, icon, title, ...others }) => {
           component="a"
           startIcon={icon}
           disableRipple
+          disabled={disabled}
         >
           <Box sx={{ flexGrow: 1 }}>{title}</Box>
         </Button>

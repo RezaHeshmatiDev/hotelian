@@ -5,6 +5,7 @@ import {
   Box,
   Divider,
   Drawer,
+  ListItem,
   Theme,
   Typography,
   useMediaQuery,
@@ -14,6 +15,9 @@ import NavItem from "./navItem";
 import HomeIcon from "@mui/icons-material/Home";
 import InterestsIcon from "@mui/icons-material/Interests";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { getToken } from "../utils/getSetToken";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { LoadingButton } from "@mui/lab";
 
 const items = [
   {
@@ -36,10 +40,18 @@ const items = [
 interface DashboardSidebarPropsType {
   open: boolean;
   onClose: () => void | undefined;
+  handleOnLogout: () => void;
+  logouting: boolean;
 }
 
-const DashboardSidebar: FC<DashboardSidebarPropsType> = ({ open, onClose }) => {
+const DashboardSidebar: FC<DashboardSidebarPropsType> = ({
+  open,
+  onClose,
+  handleOnLogout,
+  logouting,
+}) => {
   const router = useRouter();
+
   const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("lg"), {
     defaultMatches: true,
     noSsr: false,
@@ -118,14 +130,54 @@ const DashboardSidebar: FC<DashboardSidebarPropsType> = ({ open, onClose }) => {
             padding: "1rem 0 ",
           }}
         >
-          {items.map((item) => (
+          {items.map((item, index) => (
             <NavItem
               key={item.title}
               icon={item.icon}
               href={item.href}
               title={item.title}
+              disabled={
+                (index == 1 && !!getToken()) || (index == 2 && !getToken())
+              }
             />
           ))}
+
+          {getToken() && (
+            <ListItem
+              disableGutters
+              sx={{
+                display: "flex",
+                mb: 0.5,
+                py: 0,
+                px: 2,
+                color: "black ",
+              }}
+            >
+              <LoadingButton
+                loading={logouting}
+                sx={{
+                  borderRadius: 1,
+                  color: "black",
+                  justifyContent: "flex-start",
+                  px: 3,
+                  py: 10,
+                  textAlign: "left",
+                  textTransform: "none",
+                  width: "100%",
+
+                  "&:hover": {
+                    backgroundColor: "rgba(100,100,100, 0.08)",
+                  },
+                }}
+                component="a"
+                startIcon={<ExitToAppIcon fontSize="small" />}
+                disableRipple
+                onClick={handleOnLogout}
+              >
+                <Box sx={{ flexGrow: 1 }}>Exit</Box>
+              </LoadingButton>
+            </ListItem>
+          )}
         </Box>
         {/* <Divider sx={{ borderColor: '#2D3748' }} />
         <Box
