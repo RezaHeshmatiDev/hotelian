@@ -44,7 +44,6 @@ const PostsTable: FC<PostTableProps> = ({
   onSort,
   ...rest
 }) => {
-  console.log({ sortData });
   return (
     <Card {...rest}>
       <PerfectScrollbar>

@@ -1,9 +1,9 @@
 import Swal from "sweetalert2";
 
-export const errorModal = () => {
+export const errorModal = (title?: string, text?: string) => {
   Swal.fire({
     icon: "error",
-    title: "Oops...",
-    text: "Something went wrong!",
+    title: title || "Oops...",
+    text: text || "Something went wrong!",
   });
 };

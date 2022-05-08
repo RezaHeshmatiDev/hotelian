@@ -1,19 +1,14 @@
 import styled from "@emotion/styled";
-import {
-  AppBar,
-  Avatar,
-  Box,
-  IconButton,
-  ThemeOptions,
-  Toolbar,
-} from "@mui/material";
+import { AppBar, Avatar, Box, IconButton, Toolbar } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   width: "100%",
-  backgroundColor: theme.palette.primary.main,
+  // idk why it couldn't find the types :/
+  // backgroundColor: theme.palette.primary.main,
+  backgroundColor: "#7e9666",
 }));
 
 interface DashboardNavbarPropsTypes {

@@ -10,6 +10,7 @@ import Head from "next/head";
 import { ReactNode } from "react";
 import DashboardLayout from "../components/dashboardLayout";
 import styles from "../styles/Home.module.css";
+import { getToken } from "../utils/getSetToken";
 
 const Home: NextComponentType<NextPageContext, any, {}> &
   NextLayoutComponentType<{}> = () => {
@@ -34,15 +35,27 @@ const Home: NextComponentType<NextPageContext, any, {}> &
             Welcome to <a href="https://hotelian.com">Hotelian </a>Admin Panel!
           </h1>
 
-          <p className={styles.description}>
-            <NextLink
-              href="/login"
-              passHref
-              style={{ textDecoration: "underline" }}
-            >
-              click here for login
-            </NextLink>
-          </p>
+          {!getToken() ? (
+            <p className={styles.description}>
+              <NextLink
+                href="/login"
+                passHref
+                style={{ textDecoration: "underline" }}
+              >
+                click here for login
+              </NextLink>
+            </p>
+          ) : (
+            <p className={styles.description}>
+              <NextLink
+                href="/posts"
+                passHref
+                style={{ textDecoration: "underline" }}
+              >
+                click here to see posts
+              </NextLink>
+            </p>
+          )}
         </Container>
       </Box>
     </div>

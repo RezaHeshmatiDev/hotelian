@@ -93,15 +93,16 @@ const DashboardSidebar: FC<DashboardSidebarPropsType> = ({
         >
           {items.map((item, index) => {
             return (
-              <NavItem
-                key={item.title}
-                icon={item.icon}
-                href={item.href}
-                title={item.title}
-                shouldDisable={
-                  (index == 1 && !!getToken()) || (index == 2 && !getToken())
-                }
-              />
+              <div onClick={onClose} key={item.title}>
+                <NavItem
+                  icon={item.icon}
+                  href={item.href}
+                  title={item.title}
+                  shouldDisable={
+                    (index == 1 && !!getToken()) || (index == 2 && !getToken())
+                  }
+                />
+              </div>
             );
           })}
 

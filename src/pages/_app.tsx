@@ -14,7 +14,7 @@ import { Router } from "next/router";
 const queryClient = new QueryClient();
 const clientSideEmotionCache = createEmotionCache();
 
-NProgress.configure({ showSpinner: false, speed: 800, parent: "body" });
+NProgress.configure({ showSpinner: false, speed: 1000 });
 Router.events.on("routeChangeStart", () => {
   NProgress.start();
 });

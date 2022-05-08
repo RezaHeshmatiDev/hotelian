@@ -8,6 +8,7 @@ import useLogin from "../apiCalls/useLogin";
 import { styled } from "@mui/material/styles";
 import { getToken, setToken } from "../utils/getSetToken";
 import { useRouter } from "next/router";
+import { errorModal } from "../utils/globalModal";
 
 const LoginContainer = styled(Container)(({ theme }) => ({
   display: "flex",
@@ -33,6 +34,12 @@ const Login = () => {
   const { data, isLoading, error, fetchLoginData } = useLogin();
   const router = useRouter();
 
+  if (error)
+    errorModal(
+      error?.response?.data?.result[0].field,
+      error?.response?.data?.result[0].message
+    );
+
   React.useEffect(() => {
     if (data) {
       const token = data?.data?.result?.access_token;
@@ -40,7 +47,6 @@ const Login = () => {
       router.replace("/posts");
     }
   }, [data]);
-  console.log({ getToken: getToken() });
 
   if (getToken()) {
     //we should verify the token first
@@ -66,7 +72,7 @@ const Login = () => {
         component="main"
         sx={{
           flexGrow: 1,
-          py: 8,
+          py: 10.2,
         }}
       >
         <LoginContainer maxWidth={false}>

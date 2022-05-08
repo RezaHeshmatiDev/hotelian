@@ -14,3 +14,8 @@ a {
 * {
   box-sizing: border-box;
 }
+#nprogress {
+  position: relative;
+  z-index: 9999999;
+
+}

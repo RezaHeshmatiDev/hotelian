@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://front-api-test.wsafar.com",
+  baseURL: "https://front-api-test.wsafar.com",
 });
 
 //we can add aditional global headers for all reqs here

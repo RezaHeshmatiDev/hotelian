@@ -20,7 +20,6 @@ const NavItem: FC<NavItemPropsType> = ({
   const router = useRouter();
   const active = href ? router.pathname === href : false;
 
-  console.log({ title, shouldDisable });
   return (
     <ListItem
       disableGutters

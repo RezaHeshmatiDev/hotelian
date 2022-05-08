@@ -19,7 +19,7 @@ interface DashboardLayoutPropsType {
 }
 
 const DashboardLayout: FC<DashboardLayoutPropsType> = ({ children }) => {
-  const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
   const router = useRouter();
   const { data, isLoading, mutate: logoutUser } = useLogoutUser();
 

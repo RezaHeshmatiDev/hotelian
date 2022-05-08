@@ -76,8 +76,6 @@ const Posts = ({
     });
 
     setPosts([...sortedPosts]);
-
-    console.log({ sortData, sortedPosts });
   };
 
   const metas = data?.data?.result?._meta || metaa;
