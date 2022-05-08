@@ -22,9 +22,21 @@ export type SuccessType = {
   };
 };
 
-const getPosts = ({ page }: { page: number }) =>
+type PostParams = {
+  page?: number;
+  searchField?: string;
+  searchKeyword?: string;
+};
+
+const getPosts = ({ page, searchField, searchKeyword }: PostParams) =>
   instance.get("/posts", {
-    params: { "access-token": `${getToken()}`, page: page || 1 },
+    params: {
+      "access-token": `${getToken()}`,
+      page: page || 1,
+      ...(searchField && searchKeyword
+        ? { [`filter[${searchKeyword}]`]: searchKeyword }
+        : undefined),
+    },
   });
 
 type UseGetPosts = ({
