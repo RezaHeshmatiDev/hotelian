@@ -40,13 +40,12 @@ const Login = () => {
       router.replace("/posts");
     }
   }, [data]);
+  console.log({ getToken: getToken() });
 
-  React.useEffect(() => {
-    if (getToken()) {
-      //we should verify the token first
-      router.replace("/posts");
-    }
-  }, []);
+  if (getToken()) {
+    //we should verify the token first
+    router.replace("/posts");
+  }
 
   const onSubmit: SubmitHandler<LoginTypes> = (values: LoginTypes) =>
     fetchLoginData(values);

@@ -13,9 +13,6 @@ const DashboardLayoutRoot = styled("div")(({ theme }) => ({
   paddingTop: 25,
   height: "100vh",
   backgroundColor: theme.palette.primary.dark,
-  [theme.breakpoints.up("lg")]: {
-    paddingLeft: 280,
-  },
 }));
 
 interface DashboardLayoutPropsType {

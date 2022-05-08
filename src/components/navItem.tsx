@@ -1,25 +1,26 @@
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { Box, Button, ListItem } from "@mui/material";
-import { FC, ReactNode } from "react";
+import React, { FC, ReactNode } from "react";
 
 interface NavItemPropsType {
   href: string;
   icon: ReactNode;
   title: string;
-  disabled: boolean;
+  shouldDisable: boolean;
 }
 
 const NavItem: FC<NavItemPropsType> = ({
   href,
   icon,
   title,
-  disabled,
+  shouldDisable,
   ...others
 }) => {
   const router = useRouter();
   const active = href ? router.pathname === href : false;
 
+  console.log({ title, shouldDisable });
   return (
     <ListItem
       disableGutters
@@ -32,7 +33,7 @@ const NavItem: FC<NavItemPropsType> = ({
       }}
       {...others}
     >
-      <NextLink href={href} passHref aria-disabled>
+      <NextLink href={href} passHref>
         <Button
           sx={{
             backgroundColor: active ? "primary.dark" : "none",
@@ -54,7 +55,7 @@ const NavItem: FC<NavItemPropsType> = ({
           component="a"
           startIcon={icon}
           disableRipple
-          disabled={disabled}
+          disabled={shouldDisable}
         >
           <Box sx={{ flexGrow: 1 }}>{title}</Box>
         </Button>
