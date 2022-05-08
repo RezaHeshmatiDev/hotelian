@@ -18,6 +18,7 @@ const LoginContainer = styled(Container)(({ theme }) => ({
   width: "fit-content",
   padding: "2rem",
   boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+  height: "100%",
 }));
 const inputsStyles = {
   margin: ".4rem",
@@ -31,16 +32,21 @@ type LoginTypes = {
 const Login = () => {
   const { data, isLoading, error, fetchLoginData } = useLogin();
   const router = useRouter();
-  if (data) {
-    const loginData = data?.data?.result?.access_token;
-    setToken(loginData);
-    router.replace("/posts");
-  }
 
-  if (getToken()) {
-    //we should verify the token first
-    router.replace("/posts");
-  }
+  React.useEffect(() => {
+    if (data) {
+      const token = data?.data?.result?.access_token;
+      setToken(token);
+      router.replace("/posts");
+    }
+  }, [data]);
+
+  React.useEffect(() => {
+    if (getToken()) {
+      //we should verify the token first
+      router.replace("/posts");
+    }
+  }, []);
 
   const onSubmit: SubmitHandler<LoginTypes> = (values: LoginTypes) =>
     fetchLoginData(values);
