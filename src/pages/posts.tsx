@@ -33,6 +33,23 @@ const Posts = ({
   const [page, setPage] = React.useState(1);
   const [searchField, setSearchField] = React.useState("title");
   const [searchKeyword, setSearchKeyword] = React.useState("");
+  const [posts, setPosts] = React.useState<
+    | {
+        content: string;
+        created_at: string;
+        id: number;
+        status: 0 | 1;
+        title: string;
+        updated_at: string;
+      }[]
+  >([]);
+  const [sortData, setSortData] = React.useState<
+    | {
+        field: "id" | "title";
+        type: "asc" | "desc";
+      }
+    | undefined
+  >(undefined);
   const { data, isLoading, isError, refetch } = useGetPosts({
     page,
     searchKeyword,
@@ -40,11 +57,33 @@ const Posts = ({
   });
 
   const handleSearch = (value: string) =>
-    debounce(() => setSearchKeyword(value), 500)();
+    debounce(() => setSearchKeyword(value), 700)();
   const handleSelectSearchField = (value: string) => setSearchField(value);
+  React.useEffect(() => {
+    const posts = data?.data?.result?.items || postss;
+    if (posts) setPosts([...posts]);
+  }, [data]);
+
+  const handleOnSort = (sortData: {
+    field: "id" | "title";
+    type: "asc" | "desc";
+  }) => {
+    setSortData(sortData);
+    const sortedPosts = posts.sort((a, b) => {
+      if (sortData?.type == "asc")
+        return a[sortData.field] > b[sortData?.field] ? 1 : 0;
+      else return a[sortData.field] < b[sortData?.field] ? 1 : 0;
+    });
+
+    setPosts([...sortedPosts]);
+
+    console.log({ sortData, sortedPosts });
+  };
+
+  const metas = data?.data?.result?._meta || metaa;
 
   React.useEffect(() => {
-    if (!hasToken) router.replace("/");
+    if (!hasToken) router.replace("/login");
   }, [hasToken]);
 
   React.useEffect(() => {
@@ -64,8 +103,6 @@ const Posts = ({
       </Container>
     );
 
-  const posts = data?.data?.result?.items || postss;
-  const metas = data?.data?.result?._meta || metaa;
   if (!isError) {
     return (
       <Container sx={{ backgroundColor: "primary.dark" }}>
@@ -117,6 +154,8 @@ const Posts = ({
               postsLength={metas?.totalCount}
               handlePageChange={(page) => setPage(page + 1)}
               perPage={metas?.perPage}
+              sortData={sortData}
+              onSort={handleOnSort}
             />
           </>
         ) : (

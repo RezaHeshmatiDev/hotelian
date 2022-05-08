@@ -9,6 +9,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  TableSortLabel,
 } from "@mui/material";
 
 interface PostTableProps {
@@ -24,6 +25,13 @@ interface PostTableProps {
   postsLength?: number;
   handlePageChange: (page: number) => void;
   perPage?: number;
+  sortData:
+    | {
+        field: "id" | "title";
+        type: "asc" | "desc";
+      }
+    | undefined;
+  onSort: (data: { field: "id" | "title"; type: "asc" | "desc" }) => void;
 }
 
 const PostsTable: FC<PostTableProps> = ({
@@ -32,9 +40,11 @@ const PostsTable: FC<PostTableProps> = ({
   page,
   postsLength,
   perPage,
+  sortData,
+  onSort,
   ...rest
 }) => {
-  console.log({ posts });
+  console.log({ sortData });
   return (
     <Card {...rest}>
       <PerfectScrollbar>
@@ -42,8 +52,44 @@ const PostsTable: FC<PostTableProps> = ({
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Id</TableCell>
-                <TableCell>Title</TableCell>
+                <TableCell>
+                  <TableSortLabel
+                    active={sortData && sortData.field == "id"}
+                    direction={sortData?.type}
+                    onClick={() =>
+                      onSort({
+                        field: "id",
+                        type:
+                          sortData?.field == "title"
+                            ? "desc"
+                            : sortData?.type == "asc"
+                            ? "desc"
+                            : "asc",
+                      })
+                    }
+                  >
+                    Id
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell>
+                  <TableSortLabel
+                    active={sortData && sortData.field == "title"}
+                    direction={sortData?.type}
+                    onClick={() =>
+                      onSort({
+                        field: "title",
+                        type:
+                          sortData?.field == "id"
+                            ? "desc"
+                            : sortData?.type == "asc"
+                            ? "desc"
+                            : "asc",
+                      })
+                    }
+                  >
+                    Title
+                  </TableSortLabel>
+                </TableCell>
                 <TableCell>Content</TableCell>
                 <TableCell>Status</TableCell>
               </TableRow>
