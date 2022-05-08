@@ -4,25 +4,33 @@ import instance from "./instance";
 
 //create a custom hook :)
 type LoginType = {
-  userName: string;
+  username: string;
   password: string;
 };
 const login = (params: LoginType) =>
   instance.post("/users/login", {
-    params,
+    ...params,
   });
 
+type successType = {
+  ok: string;
+  result: {
+    access_token: string;
+    expire_at: string;
+  };
+};
+
 type UseLoginType = () => {
-  data: AxiosResponse<any> | undefined;
+  data: AxiosResponse<successType> | undefined;
   isLoading: boolean;
   error: AxiosError<unknown, any> | undefined;
   fetchLoginData: (params: LoginType) => void;
 };
 
 const useLogin: UseLoginType = () => {
-  const [data, setData] = React.useState<AxiosResponse<any> | undefined>(
-    undefined
-  );
+  const [data, setData] = React.useState<
+    AxiosResponse<successType> | undefined
+  >(undefined);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<
     AxiosError<unknown, any> | undefined
@@ -31,8 +39,14 @@ const useLogin: UseLoginType = () => {
   const fetchLoginData = (params: LoginType) => {
     setIsLoading(true);
     login(params)
-      .then((res) => setData(res))
-      .catch(setError)
+      .then((res) => {
+        setData(res);
+        setError(undefined);
+      })
+      .catch((err) => {
+        setError(err);
+        setData(undefined);
+      })
       .finally(() => setIsLoading(false));
   };
 

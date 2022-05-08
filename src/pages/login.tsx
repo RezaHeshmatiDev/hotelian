@@ -6,6 +6,8 @@ import DashboardLayout from "../components/dashboardLayout";
 import { LoadingButton } from "@mui/lab";
 import useLogin from "../apiCalls/useLogin";
 import { styled } from "@mui/material/styles";
+import { getToken, setToken } from "../utils/getSetToken";
+import { useRouter } from "next/router";
 
 const LoginContainer = styled(Container)(({ theme }) => ({
   display: "flex",
@@ -22,12 +24,23 @@ const inputsStyles = {
 };
 
 type LoginTypes = {
-  userName: string;
+  username: string;
   password: string;
 };
 
 const Login = () => {
   const { data, isLoading, error, fetchLoginData } = useLogin();
+  const router = useRouter();
+  if (data) {
+    const loginData = data?.data?.result?.access_token;
+    setToken(loginData);
+    router.replace("/posts");
+  }
+
+  if (getToken()) {
+    //we should verify the token first
+    router.replace("/posts");
+  }
 
   const onSubmit: SubmitHandler<LoginTypes> = (values: LoginTypes) =>
     fetchLoginData(values);
@@ -59,7 +72,7 @@ const Login = () => {
               id="filled-basic"
               label="User Name"
               variant="filled"
-              {...register("userName")}
+              {...register("username")}
             />
             <TextField
               {...register("password")}
