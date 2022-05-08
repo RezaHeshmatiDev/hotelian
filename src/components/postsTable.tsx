@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useState } from "react";
+import { FC } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import {
   Box,
@@ -9,7 +9,6 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  TableSortLabel,
 } from "@mui/material";
 
 interface PostTableProps {
