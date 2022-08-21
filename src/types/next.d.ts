@@ -8,6 +8,7 @@ import type { AppProps } from "next/app";
 
 interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache;
+  test?: boolean;
 }
 
 declare module "next" {
